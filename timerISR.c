@@ -4,8 +4,9 @@
  *  Created on: 
  *      Author: 
  */
-#include "System.h"
+#include "system.h"
 #include "alt_types.h"
+#include "io.h"
 #include "HexDisplay.h"
 
 /*****************************************************************************
@@ -22,11 +23,11 @@ void timerISR(void * context, alt_u32 id)
 	/* Cast context. It is important that this be declared
 	 * volatile to avoid unwanted compiler optimization.
 	 */
-
+	alt_u32* count_ptr = (alt_u32*)context;
 	/* clear the interrupt */
-
+	IOWR(INTERVAL_TIMER_BASE, 0, 0);
 	/* Act upon the interrupt */
-
+	*count_ptr = *count_ptr + 1;
 	/* Display count value 
 	 * (Is this the best place to do this? 
 	 * Why or why not?) 
